@@ -41,20 +41,8 @@
               "node_modules/leaflet/dist/leaflet.css",
               "src/app/@theme/styles/styles.scss"
             ],
-            "scripts": [
-              "node_modules/pace-js/pace.min.js",
-              "node_modules/tinymce/tinymce.min.js",
-              "node_modules/tinymce/themes/modern/theme.min.js",
-              "node_modules/tinymce/plugins/link/plugin.min.js",
-              "node_modules/tinymce/plugins/paste/plugin.min.js",
-              "node_modules/tinymce/plugins/table/plugin.min.js",
-              "node_modules/echarts/dist/echarts.min.js",
-              "node_modules/echarts/dist/extension/bmap.min.js",
-              "node_modules/chart.js/dist/Chart.min.js"
-            ],
+            "scripts": ["node_modules/pace-js/pace.min.js"],
             "allowedCommonJsDependencies": [
-              "angular2-chartjs",
-              "echarts",
               "lodash",
               "zrender/lib/svg/svg",
               "zrender/lib/vml/vml",
@@ -111,17 +99,7 @@
             "karmaConfig": "./karma.conf.js",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.spec.json",
-            "scripts": [
-              "node_modules/pace-js/pace.min.js",
-              "node_modules/tinymce/tinymce.min.js",
-              "node_modules/tinymce/themes/modern/theme.min.js",
-              "node_modules/tinymce/plugins/link/plugin.min.js",
-              "node_modules/tinymce/plugins/paste/plugin.min.js",
-              "node_modules/tinymce/plugins/table/plugin.min.js",
-              "node_modules/echarts/dist/echarts.min.js",
-              "node_modules/echarts/dist/extension/bmap.min.js",
-              "node_modules/chart.js/dist/Chart.min.js"
-            ],
+            "scripts": ["node_modules/pace-js/pace.min.js"],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.css",
               "node_modules/typeface-exo/index.css",
@@ -148,10 +126,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "src/tsconfig.app.json",
-              "src/tsconfig.spec.json"
-            ],
+            "tsConfig": ["src/tsconfig.app.json", "src/tsconfig.spec.json"],
             "typeCheck": true,
             "exclude": []
           }
@@ -173,9 +148,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "e2e/tsconfig.e2e.json"
-            ],
+            "tsConfig": ["e2e/tsconfig.e2e.json"],
             "exclude": []
           }
         }
