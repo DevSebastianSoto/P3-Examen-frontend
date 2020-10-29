@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 
-import { TrabajadorDetailComponent } from './views/trabajadores/trabajador-detail/trabajador-detail.component';
 import { TrabajadorListComponent } from './views/trabajadores/trabajador-list/trabajador-list.component';
 import { TrabajadorService } from './service/trabajador.service';
 import { TrabajadoresComponent } from './views/trabajadores/trabajadores.component';
@@ -28,6 +27,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
+import { TiposActivoComponent } from './views/tipos-activo/tipos-activo.component';
+import { TiposActivoService } from './service/tipos-activo.service';
+import { TiposActivoListComponent } from './views/tipos-activo/tipos-activo-list/tipos-activo-list.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,8 @@ import { MatInputModule } from '@angular/material/input';
     NavComponent,
     TrabajadoresComponent,
     TrabajadorListComponent,
-    TrabajadorDetailComponent,
+    TiposActivoListComponent,
+    TiposActivoComponent,
   ],
   imports: [
     BrowserModule,
@@ -60,7 +63,7 @@ import { MatInputModule } from '@angular/material/input';
     MatSortModule,
     MatFormFieldModule,
   ],
-  providers: [TrabajadorService],
+  providers: [TrabajadorService, TiposActivoService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

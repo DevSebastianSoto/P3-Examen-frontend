@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TrabajadorDetailComponent } from './trabajador-detail.component';
+import { TiposActivoListComponent } from './tipos-activo-list.component';
 
-describe('TrabajadorDetailComponent', () => {
-  let component: TrabajadorDetailComponent;
-  let fixture: ComponentFixture<TrabajadorDetailComponent>;
+describe('TiposActivoListComponent', () => {
+  let component: TiposActivoListComponent;
+  let fixture: ComponentFixture<TiposActivoListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TrabajadorDetailComponent ]
+      declarations: [ TiposActivoListComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TrabajadorDetailComponent);
+    fixture = TestBed.createComponent(TiposActivoListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
