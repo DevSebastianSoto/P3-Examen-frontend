@@ -1,7 +1,7 @@
 const PROXY_CONFIG = [
   {
-    context: ["/trabajadores"],
-    target: "http://localhost:8080/api",
+    context: ["/api"],
+    target: "http://localhost:8080",
     secure: false,
   },
 ];
