@@ -1,0 +1,101 @@
+<div class="search-div">
+  <button mat-raised-button color="accent">
+    <mat-icon>add</mat-icon>Agregar
+  </button>
+  <mat-form-field class="search-form-field" floatLabel="never">
+    <input
+      matInput
+      [(ngModel)]="busqueda"
+      placeholder="Buscar"
+      autocomplete="off"
+      (keyup)="actualizarTabla()"
+    />
+    <button
+      mat-button
+      matSuffix
+      mat-icon-button
+      aria-label="Clear"
+      *ngIf="busqueda"
+      (click)="limpiarEnBusqueda()"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+</div>
+<div class="mat-elevation-z8">
+  <mat-table [dataSource]="tableData" matSort>
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.id }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="nombre">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        >Nombre</mat-header-cell
+      >
+      <mat-cell *matCellDef="let element">{{ element.nombre }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="apellidos">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        >Apellidos</mat-header-cell
+      >
+      <mat-cell *matCellDef="let element">{{ element.apellidos }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="fecha">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        >Fecha de nacimiento</mat-header-cell
+      >
+      <mat-cell *matCellDef="let element">{{
+        element.fechaNacimiento
+      }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="estado">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        >Estado</mat-header-cell
+      >
+      <mat-cell *matCellDef="let element">{{
+        element.estado | titlecase
+      }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="acciones">
+      <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <button mat-icon-button><mat-icon>launch</mat-icon></button>
+        <button mat-icon-button color="warn">
+          <mat-icon>delete_outline</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="loading">
+      <mat-footer-cell *matFooterCellDef colspan="columnNames.length">
+        Cargando trabajadores
+      </mat-footer-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="noData">
+      <mat-footer-cell *matFooterCellDef colspan="columnNames.length">
+        No hay trabajadores
+      </mat-footer-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="columnNames"></mat-header-row>
+
+    <mat-row *matRowDef="let row; columns: columnNames"></mat-row>
+
+    <mat-footer-row
+      *matFooterRowDef="['loading']"
+      [ngClass]="{ hide: tableData != null }"
+    ></mat-footer-row>
+
+    <mat-footer-row
+      *matFooterRowDef="['noData']"
+      [ngClass]="{ hide: !(tableData != null && tableData.data.length == 0) }"
+    ></mat-footer-row>
+  </mat-table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 25]" [pageSize]="5"></mat-paginator>
+</div>

@@ -1,0 +1,25 @@
+<div class="grid-container">
+  <h1 class="mat-h1">Trabajadores</h1>
+  <mat-grid-list cols="4" rowHeight="600px">
+    <mat-grid-tile [colspan]="table.cols" [rowspan]="table.rows">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>{{ table.title }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+          contenido
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="formCreate.cols" [rowspan]="formCreate.rows">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>{{ formCreate.title }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+          <app-trabajador-list></app-trabajador-list>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
