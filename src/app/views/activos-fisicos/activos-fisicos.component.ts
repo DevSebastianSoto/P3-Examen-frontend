@@ -1,33 +1,51 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
+import { Card } from 'src/app/domain/Cards';
+import { Observable } from 'rxjs';
+import { ActivoFisico } from 'src/app/domain/ActivoFisico';
+import { ActivosFisicosService } from 'src/app/service/activos-fisicos.service';
 
 @Component({
   selector: 'app-activos-fisicos',
   templateUrl: './activos-fisicos.component.html',
-  styleUrls: ['./activos-fisicos.component.css']
+  styleUrls: ['./activos-fisicos.component.css'],
 })
-export class ActivosFisicosComponent {
-  /** Based on the screen size, switch from standard to one column per row */
-  cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
-    map(({ matches }) => {
-      if (matches) {
-        return [
-          { title: 'Card 1', cols: 1, rows: 1 },
-          { title: 'Card 2', cols: 1, rows: 1 },
-          { title: 'Card 3', cols: 1, rows: 1 },
-          { title: 'Card 4', cols: 1, rows: 1 }
-        ];
-      }
+export class ActivosFisicosComponent implements OnInit {
+  public activoFisico: ActivoFisico[] = [];
+  public table: Card = { title: '', cols: 0, rows: 0 };
+  isHandset: boolean = false;
+  isHandsetObserver: Observable<boolean> = this.breakpointObserver
+    .observe(Breakpoints.Handset)
+    .pipe(
+      map(({ matches }) => {
+        if (matches) {
+          return true;
+        }
+        return false;
+      })
+    );
 
-      return [
-        { title: 'Card 1', cols: 2, rows: 1 },
-        { title: 'Card 2', cols: 1, rows: 1 },
-        { title: 'Card 3', cols: 1, rows: 2 },
-        { title: 'Card 4', cols: 1, rows: 1 }
-      ];
-    })
-  );
+  constructor(
+    private breakpointObserver: BreakpointObserver,
+    public _activoFisicoService: ActivosFisicosService
+  ) {}
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  ngOnInit(): void {
+    this._activoFisicoService.getActivosFisicos().subscribe((data) => {
+      if (data.body != null) this.activoFisico = data.body;
+      this.loadCards();
+    });
+    this.isHandsetObserver.subscribe((val) => {
+      this.isHandset = val;
+      this.loadCards();
+    });
+  }
+  loadCards() {
+    if (this.isHandset) {
+      this.table = { title: 'Listar', cols: 4, rows: 1 };
+    } else {
+      this.table = { title: 'Listar', cols: 4, rows: 1 };
+    }
+  }
 }

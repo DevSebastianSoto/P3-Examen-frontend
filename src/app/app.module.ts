@@ -32,6 +32,7 @@ import { TiposActivoService } from './service/tipos-activo.service';
 import { TiposActivoListComponent } from './views/tipos-activo/tipos-activo-list/tipos-activo-list.component';
 import { ActivosFisicosComponent } from './views/activos-fisicos/activos-fisicos.component';
 import { ActivosFisicosListComponent } from './views/activos-fisicos/activos-fisicos-list/activos-fisicos-list.component';
+import { ActivosFisicosService } from './service/activos-fisicos.service';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,7 @@ import { ActivosFisicosListComponent } from './views/activos-fisicos/activos-fis
     MatSortModule,
     MatFormFieldModule,
   ],
-  providers: [TrabajadorService, TiposActivoService],
+  providers: [TrabajadorService, ActivosFisicosService, TiposActivoService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
