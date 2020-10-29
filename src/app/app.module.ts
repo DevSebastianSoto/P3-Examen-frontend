@@ -30,6 +30,8 @@ import { MatInputModule } from '@angular/material/input';
 import { TiposActivoComponent } from './views/tipos-activo/tipos-activo.component';
 import { TiposActivoService } from './service/tipos-activo.service';
 import { TiposActivoListComponent } from './views/tipos-activo/tipos-activo-list/tipos-activo-list.component';
+import { ActivosFisicosComponent } from './views/activos-fisicos/activos-fisicos.component';
+import { ActivosFisicosListComponent } from './views/activos-fisicos/activos-fisicos-list/activos-fisicos-list.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +41,8 @@ import { TiposActivoListComponent } from './views/tipos-activo/tipos-activo-list
     TrabajadorListComponent,
     TiposActivoListComponent,
     TiposActivoComponent,
+    ActivosFisicosComponent,
+    ActivosFisicosListComponent,
   ],
   imports: [
     BrowserModule,
