@@ -35,7 +35,11 @@ export class TrabajadorListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this._trabajadorService.getTrabajadores().subscribe((data) => {
+    this.refreshTable();
+  }
+
+  refreshTable(): void {
+    this._trabajadorService.getTrabajadores().subscribe((data: any) => {
       if (data.body != null) {
         this.tableData = new MatTableDataSource(data.body);
         this.tableData.sort = this.sort;
@@ -62,19 +66,21 @@ export class TrabajadorListComponent implements OnInit {
     this.dialog.open(TrabajadorCreateComponent, dialogConfig);
   }
 
-  onEdit(row) {
+  onEdit(row: any) {
     this._trabajadorService.populateForm(row);
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.width = '60%';
+    dialogConfig.width = 'auto';
     this.dialog.open(TrabajadorCreateComponent, dialogConfig);
   }
 
-  onDelete(id) {
+  onDelete(id: any) {
     if (confirm('Are you sure to delete this record ?')) {
-      this._trabajadorService.deleteTrabajador(id);
-      this.notificationService.warn('! Deleted successfully');
+      this._trabajadorService
+        .deleteTrabajador(id)
+        .subscribe((response: any) => {
+          this.notificationService.warn('! Deleted successfully');
+        });
     }
   }
 }

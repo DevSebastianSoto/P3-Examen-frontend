@@ -58,7 +58,8 @@ export class TrabajadorService {
     return this.http.delete(`${this.apiBase}/${id}`);
   }
 
-  populateForm(row: any) {
-    throw new Error('Method not implemented.');
+  populateForm(ta: Trabajador) {
+    console.log(ta);
+    this.form.setValue(ta);
   }
 }

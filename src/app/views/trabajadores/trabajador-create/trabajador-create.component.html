@@ -1,4 +1,4 @@
-<h3>Crear Trabajador</h3>
+<h3>{{ isNew ? "Crear" : "Modificar" }} Trabajador</h3>
 <mat-divider></mat-divider>
 <form [formGroup]="service.form" class="normal-form" (submit)="onSubmit()">
   <div>
@@ -35,7 +35,7 @@
         type="submit"
         [disabled]="service.form.invalid"
       >
-        Guardar
+        {{ isNew ? "Guardar" : "Actualizar" }}
       </button>
       <button mat-raised-button color="warn" (click)="onClear()">
         Limpiar

@@ -9,6 +9,8 @@ import { TrabajadorService } from 'src/app/service/trabajador.service';
   styleUrls: ['./trabajador-create.component.css'],
 })
 export class TrabajadorCreateComponent implements OnInit {
+  isNew: boolean;
+
   constructor(
     public service: TrabajadorService,
     private notificationService: NotificationService,
@@ -17,6 +19,7 @@ export class TrabajadorCreateComponent implements OnInit {
 
   ngOnInit(): void {
     this.service.getTrabajadores();
+    this.isNew = this.service.form.get('id').value == null;
   }
 
   onClear(): void {
@@ -25,24 +28,46 @@ export class TrabajadorCreateComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.service.form.valid) {
-      this.service.createTrabajador(this.service.form.value).subscribe(
-        (response) => {
-          let msg = `Se ha registrado con exito: ${response.nombre}`;
+    if (this.service.form.valid) this.isNew ? this.save() : this.update();
+  }
+
+  update(): void {
+    this.service.updateTrabajador(this.service.form.value).subscribe(
+      (response: any) => {
+        let msg = `Se ha actualizado con exito: ${response.nombre}`;
+        this.close(msg);
+      },
+      (error: any) => {
+        {
+          let msg = 'No se ha cambiado la información';
           this.notificationService.success(msg);
-          this.service.getTrabajadores();
-          this.dialogRef.close();
-        },
-        (error) => {
-          {
-            let msg = 'Ha fallado el registro.';
-            this.notificationService.success(msg);
-            console.log(msg);
-          }
+          console.log(error);
         }
-      );
-      this.service.form.reset();
-      this.service.initializeFormGroup();
-    }
+      }
+    );
+  }
+
+  save(): void {
+    this.service.createTrabajador(this.service.form.value).subscribe(
+      (response: any) => {
+        let msg = `Se ha registrado con exito: ${response.nombre}`;
+        this.close(msg);
+      },
+      (error: any) => {
+        {
+          let msg = 'Ha fallado el registro.';
+          this.notificationService.success(msg);
+          console.log(error);
+        }
+      }
+    );
+  }
+
+  close(msg: string): void {
+    this.notificationService.success(msg);
+    this.service.getTrabajadores();
+    this.service.form.reset();
+    this.service.initializeFormGroup();
+    this.dialogRef.close();
   }
 }
