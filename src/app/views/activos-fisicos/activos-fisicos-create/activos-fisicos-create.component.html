@@ -29,6 +29,17 @@
     </mat-form-field>
     <br />
     <mat-form-field>
+      <mat-select formControlName="idTipoActivo" placeholder="Tipo de activo">
+        <mat-option>Seleccione una opción</mat-option>
+        <ng-container *ngFor="let ta of listaTiposActivos">
+          <mat-option value="{{ ta.id }}">
+            ({{ ta.id }}) {{ ta.nombre }}
+          </mat-option>
+        </ng-container>
+      </mat-select>
+    </mat-form-field>
+    <br />
+    <mat-form-field>
       <input
         formControlName="fechaIngreso"
         matInput

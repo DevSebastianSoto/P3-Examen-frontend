@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ActivosFisicosService } from 'src/app/service/activos-fisicos.service';
 import { NotificationService } from 'src/app/service/notification.service';
+import { TiposActivoService } from 'src/app/service/tipos-activo.service';
 
 @Component({
   selector: 'app-activos-fisicos-create',
@@ -10,9 +11,11 @@ import { NotificationService } from 'src/app/service/notification.service';
 })
 export class ActivosFisicosCreateComponent implements OnInit {
   isNew: boolean;
+  listaTiposActivos: any;
 
   constructor(
     public service: ActivosFisicosService,
+    public tipoActivoService: TiposActivoService,
     private notificationService: NotificationService,
     public dialogRef: MatDialogRef<ActivosFisicosCreateComponent>
   ) {}
@@ -20,6 +23,9 @@ export class ActivosFisicosCreateComponent implements OnInit {
   ngOnInit(): void {
     this.service.getActivosFisicos();
     this.isNew = this.service.form.get('id').value == null;
+    this.tipoActivoService.getTiposActivo().subscribe((response: any) => {
+      this.listaTiposActivos = response.body;
+    });
   }
 
   onClear(): void {
