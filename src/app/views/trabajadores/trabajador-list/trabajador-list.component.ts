@@ -14,6 +14,7 @@ import { TrabajadorCreateComponent } from '../trabajador-create/trabajador-creat
 })
 export class TrabajadorListComponent implements OnInit {
   tableData: MatTableDataSource<any>;
+
   columnNames: string[] = [
     'id',
     'nombre',
@@ -74,12 +75,14 @@ export class TrabajadorListComponent implements OnInit {
     this.dialog.open(TrabajadorCreateComponent, dialogConfig);
   }
 
-  onDelete(id: any) {
-    if (confirm('Are you sure to delete this record ?')) {
+  onDelete(id) {
+    if (confirm('Seguro que desea borrar este registro?')) {
       this._trabajadorService
         .deleteTrabajador(id)
         .subscribe((response: any) => {
-          this.notificationService.warn('! Deleted successfully');
+          this.notificationService.warn(
+            'Se han eliminado los datos correctamente'
+          );
         });
     }
   }

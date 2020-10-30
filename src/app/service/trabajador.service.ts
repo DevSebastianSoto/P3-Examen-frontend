@@ -59,7 +59,6 @@ export class TrabajadorService {
   }
 
   populateForm(ta: Trabajador) {
-    console.log(ta);
     this.form.setValue(ta);
   }
 }

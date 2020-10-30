@@ -29,7 +29,7 @@ export class TiposActivoListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this._tiposActivoService.getTiposActivo().subscribe((data) => {
+    this._tiposActivoService.getTiposActivo().subscribe((data: any) => {
       if (data.body != null) {
         this.tableData = new MatTableDataSource(data.body);
         this.tableData.sort = this.sort;
@@ -44,28 +44,35 @@ export class TiposActivoListComponent implements OnInit {
     this.busqueda = '';
     this.actualizarTabla();
   }
+
   actualizarTabla() {
     this.tableData.filter = this.busqueda.trim().toLowerCase();
   }
+
   onCreate() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
     dialogConfig.width = 'auto';
     this.dialog.open(TiposActivoCreateComponent, dialogConfig);
   }
-  onEdit(row) {
+
+  onEdit(row: any) {
     this._tiposActivoService.populateForm(row);
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.width = '60%';
+    dialogConfig.width = 'auto';
     this.dialog.open(TiposActivoCreateComponent, dialogConfig);
   }
 
   onDelete(id) {
-    if (confirm('Are you sure to delete this record ?')) {
-      this._tiposActivoService.deleteTipoActivo(id);
-      this.notificationService.warn('! Deleted successfully');
+    if (confirm('Seguro que desea borrar este registro?')) {
+      this._tiposActivoService
+        .deleteTipoActivo(id)
+        .subscribe((response: any) => {
+          this.notificationService.warn(
+            'Se han eliminado los datos correctamente'
+          );
+        });
     }
   }
 }

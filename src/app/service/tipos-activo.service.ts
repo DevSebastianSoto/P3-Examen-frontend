@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { EstadoEnum } from '../domain/EstadoEnum';
 import { TipoActivo } from '../domain/TipoActivo';
+import * as _ from 'lodash';
 
 @Injectable({
   providedIn: 'root',
@@ -57,6 +58,7 @@ export class TiposActivoService {
   }
 
   populateForm(row: any) {
-    throw new Error('Method not implemented.');
+    console.log(row);
+    this.form.setValue(_.omit(row, 'activosFisicos'));
   }
 }

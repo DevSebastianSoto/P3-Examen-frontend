@@ -9,6 +9,8 @@ import { TiposActivoService } from 'src/app/service/tipos-activo.service';
   styleUrls: ['./tipos-activo-create.component.css'],
 })
 export class TiposActivoCreateComponent implements OnInit {
+  isNew: boolean;
+
   constructor(
     public service: TiposActivoService,
     private notificationService: NotificationService,
@@ -17,32 +19,54 @@ export class TiposActivoCreateComponent implements OnInit {
 
   ngOnInit(): void {
     this.service.getTiposActivo();
+    this.isNew = this.service.form.get('id').value == null;
   }
 
   onClear(): void {
     this.service.form.reset();
     this.service.initializeFormGroup();
   }
-
   onSubmit(): void {
-    if (this.service.form.valid) {
-      this.service.createTipoActivo(this.service.form.value).subscribe(
-        (response) => {
-          let msg = `Se ha registrado con exito: ${response.nombre}`;
+    if (this.service.form.valid) this.isNew ? this.save() : this.update();
+  }
+
+  update(): void {
+    this.service.updateTipoActivo(this.service.form.value).subscribe(
+      (response: any) => {
+        let msg = `Se ha actualizado con exito: ${response.nombre}`;
+        this.close(msg);
+      },
+      (error: any) => {
+        {
+          let msg = 'No se ha cambiado la información';
           this.notificationService.success(msg);
-          this.service.getTiposActivo();
-          this.dialogRef.close();
-        },
-        (error) => {
-          {
-            let msg = 'Ha fallado el registro.';
-            this.notificationService.success(msg);
-            console.log(msg);
-          }
+          console.log(error);
         }
-      );
-      this.service.form.reset();
-      this.service.initializeFormGroup();
-    }
+      }
+    );
+  }
+
+  save(): void {
+    this.service.createTipoActivo(this.service.form.value).subscribe(
+      (response: any) => {
+        let msg = `Se ha registrado con exito: ${response.nombre}`;
+        this.close(msg);
+      },
+      (error: any) => {
+        {
+          let msg = 'Ha fallado el registro.';
+          this.notificationService.success(msg);
+          console.log(error);
+        }
+      }
+    );
+  }
+
+  close(msg: string): void {
+    this.notificationService.success(msg);
+    this.service.getTiposActivo();
+    this.service.form.reset();
+    this.service.initializeFormGroup();
+    this.dialogRef.close();
   }
 }
