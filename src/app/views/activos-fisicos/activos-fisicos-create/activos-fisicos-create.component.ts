@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
+import { EstadoEnum } from 'src/app/domain/EstadoEnum';
 import { ActivosFisicosService } from 'src/app/service/activos-fisicos.service';
 import { NotificationService } from 'src/app/service/notification.service';
 import { TiposActivoService } from 'src/app/service/tipos-activo.service';
@@ -25,6 +26,11 @@ export class ActivosFisicosCreateComponent implements OnInit {
     this.isNew = this.service.form.get('id').value == null;
     this.tipoActivoService.getTiposActivo().subscribe((response: any) => {
       this.listaTiposActivos = response.body;
+      console.log(this.listaTiposActivos);
+      this.listaTiposActivos = this.listaTiposActivos.filter(
+        (tp) => tp.estado == EstadoEnum.ACTIVO
+      );
+      console.log(this.listaTiposActivos);
     });
   }
 

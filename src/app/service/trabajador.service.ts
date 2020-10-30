@@ -13,6 +13,7 @@ export class TrabajadorService {
 
   form: FormGroup = new FormGroup({
     id: new FormControl(null),
+    hasActivo: new FormControl(null),
     nombre: new FormControl('', Validators.required),
     apellidos: new FormControl('', Validators.required),
     fechaNacimiento: new FormControl('', Validators.required),
@@ -24,6 +25,7 @@ export class TrabajadorService {
   initializeFormGroup() {
     this.form.setValue({
       id: null,
+      hasActivo: null,
       nombre: '',
       apellidos: '',
       fechaNacimiento: '',

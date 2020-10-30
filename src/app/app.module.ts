@@ -41,6 +41,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { TrabajadorAsociarComponent } from './views/trabajadores/trabajador-asociar/trabajador-asociar.component';
+import { TrabajadorActivoService } from './service/trabajador-activo.service';
+import { TrabajadorDetailsComponent } from './views/trabajadores/trabajador-details/trabajador-details.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +58,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     TrabajadorCreateComponent,
     TiposActivoCreateComponent,
     ActivosFisicosCreateComponent,
+    TrabajadorAsociarComponent,
+    TrabajadorDetailsComponent,
   ],
   imports: [
     BrowserModule,
@@ -84,7 +89,12 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatNativeDateModule,
     MatSnackBarModule,
   ],
-  providers: [TrabajadorService, ActivosFisicosService, TiposActivoService],
+  providers: [
+    TrabajadorActivoService,
+    TrabajadorService,
+    ActivosFisicosService,
+    TiposActivoService,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

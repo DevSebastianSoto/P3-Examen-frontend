@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
+import { EstadoEnum } from 'src/app/domain/EstadoEnum';
+import { ActivosFisicosService } from 'src/app/service/activos-fisicos.service';
 import { NotificationService } from 'src/app/service/notification.service';
 import { TrabajadorService } from 'src/app/service/trabajador.service';
 
@@ -10,9 +12,11 @@ import { TrabajadorService } from 'src/app/service/trabajador.service';
 })
 export class TrabajadorCreateComponent implements OnInit {
   isNew: boolean;
+  listaActivos: any;
 
   constructor(
     public service: TrabajadorService,
+    public _activoService: ActivosFisicosService,
     private notificationService: NotificationService,
     public dialogRef: MatDialogRef<TrabajadorCreateComponent>
   ) {}
@@ -20,6 +24,14 @@ export class TrabajadorCreateComponent implements OnInit {
   ngOnInit(): void {
     this.service.getTrabajadores();
     this.isNew = this.service.form.get('id').value == null;
+    this._activoService.getActivosFisicos().subscribe((response: any) => {
+      this.listaActivos = response.body;
+      console.log(this.listaActivos);
+      this.listaActivos = this.listaActivos.filter(
+        (tp) => tp.estado == EstadoEnum.ACTIVO
+      );
+      console.log(this.listaActivos);
+    });
   }
 
   onClear(): void {

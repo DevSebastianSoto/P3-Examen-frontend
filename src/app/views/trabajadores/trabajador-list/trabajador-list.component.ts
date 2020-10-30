@@ -4,7 +4,9 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { NotificationService } from 'src/app/service/notification.service';
+import { TrabajadorActivoService } from 'src/app/service/trabajador-activo.service';
 import { TrabajadorService } from 'src/app/service/trabajador.service';
+import { TrabajadorAsociarComponent } from '../trabajador-asociar/trabajador-asociar.component';
 import { TrabajadorCreateComponent } from '../trabajador-create/trabajador-create.component';
 
 @Component({
@@ -31,6 +33,7 @@ export class TrabajadorListComponent implements OnInit {
 
   constructor(
     public _trabajadorService: TrabajadorService,
+    public _trabajadorActivoService: TrabajadorActivoService,
     private notificationService: NotificationService,
     private dialog: MatDialog
   ) {}
@@ -73,6 +76,18 @@ export class TrabajadorListComponent implements OnInit {
     dialogConfig.autoFocus = true;
     dialogConfig.width = 'auto';
     this.dialog.open(TrabajadorCreateComponent, dialogConfig);
+  }
+
+  onAssign(row: any) {
+    this._trabajadorActivoService.populateForm(row);
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = 'auto';
+    this.dialog.open(TrabajadorAsociarComponent, dialogConfig);
+  }
+
+  onDetails(row: any) {
+    console.log(row);
   }
 
   onDelete(id) {

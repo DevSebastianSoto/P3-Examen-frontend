@@ -6,6 +6,7 @@ export class Trabajador {
   apellidos: String;
   fechaNacimiento: Date;
   estado: EstadoEnum;
+  hasActivo: boolean;
 
   constructor(
     nombre: String,

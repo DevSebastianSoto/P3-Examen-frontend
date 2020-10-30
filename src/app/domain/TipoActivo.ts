@@ -1,3 +1,4 @@
+import { ActivoFisico } from './ActivoFisico';
 import { EstadoEnum } from './EstadoEnum';
 
 export class TipoActivo {
@@ -5,6 +6,7 @@ export class TipoActivo {
   nombre: String;
   descripcion: String;
   estado: EstadoEnum;
+  activosFisicos: ActivoFisico[];
 
   constructor(nombre: String, apellidos: String, estado: EstadoEnum) {
     this.nombre = nombre;

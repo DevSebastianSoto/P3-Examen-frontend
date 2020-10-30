@@ -6,6 +6,7 @@ import { TiposActivoService } from 'src/app/service/tipos-activo.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { TiposActivoCreateComponent } from '../tipos-activo-create/tipos-activo-create.component';
 import { NotificationService } from 'src/app/service/notification.service';
+import { TipoActivo } from 'src/app/domain/TipoActivo';
 
 @Component({
   selector: 'app-tipos-activo-list',
@@ -65,12 +66,23 @@ export class TiposActivoListComponent implements OnInit {
   }
 
   onDelete(id) {
-    if (confirm('Seguro que desea borrar este registro?')) {
-      this.service.deleteTipoActivo(id).subscribe((response: any) => {
+    let ta: TipoActivo;
+    this.service.getTipoActivo(id).subscribe((response: any) => {
+      ta = response.body;
+      if (
+        ta.activosFisicos.length == 0 &&
+        confirm('Seguro que desea borrar este registro?')
+      ) {
+        this.service.deleteTipoActivo(id).subscribe((response: any) => {
+          this.notificationService.warn(
+            'Se han eliminado los datos correctamente'
+          );
+        });
+      } else {
         this.notificationService.warn(
-          'Se han eliminado los datos correctamente'
+          'No se puede borrar debido a que hay activos fisicos con este tipo.'
         );
-      });
-    }
+      }
+    });
   }
 }

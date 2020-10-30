@@ -64,11 +64,24 @@
     <ng-container matColumnDef="acciones">
       <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
       <mat-cell *matCellDef="let row">
+        <div *ngIf="row.hasActivo; else assignActivo">
+          <!-- Si tiene activo mostrar boton para ver menu de asociar
+            (componente con informacion y opcion de quitar asocie) -->
+          <button mat-icon-button (click)="onDetails(row)" color="accent">
+            <mat-icon>radio_button_checked</mat-icon>
+          </button>
+        </div>
+        <!-- SI NO TIENE ACTIVO MOSTRAR BOTON PARA ASOCIAR -->
+        <ng-template #assignActivo>
+          <button mat-icon-button (click)="onAssign(row)" color="accent">
+            <mat-icon>screen_share</mat-icon>
+          </button>
+        </ng-template>
         <button mat-icon-button (click)="onEdit(row)">
-          <mat-icon>launch</mat-icon>
+          <mat-icon>edit</mat-icon>
         </button>
         <button mat-icon-button color="warn" (click)="onDelete(row.id)">
-          <mat-icon>delete_outline</mat-icon>
+          <mat-icon>delete_icon</mat-icon>
         </button>
       </mat-cell>
     </ng-container>
