@@ -1,8 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { NotificationService } from 'src/app/service/notification.service';
 import { TrabajadorService } from 'src/app/service/trabajador.service';
+import { TrabajadorCreateComponent } from '../trabajador-create/trabajador-create.component';
 
 @Component({
   selector: 'app-trabajador-list',
@@ -25,7 +28,11 @@ export class TrabajadorListComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(public _trabajadorService: TrabajadorService) {}
+  constructor(
+    public _trabajadorService: TrabajadorService,
+    private notificationService: NotificationService,
+    private dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
     this._trabajadorService.getTrabajadores().subscribe((data) => {
@@ -43,7 +50,31 @@ export class TrabajadorListComponent implements OnInit {
     this.busqueda = '';
     this.actualizarTabla();
   }
+
   actualizarTabla() {
     this.tableData.filter = this.busqueda.trim().toLowerCase();
+  }
+
+  onCreate() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = 'auto';
+    this.dialog.open(TrabajadorCreateComponent, dialogConfig);
+  }
+
+  onEdit(row) {
+    this._trabajadorService.populateForm(row);
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '60%';
+    this.dialog.open(TrabajadorCreateComponent, dialogConfig);
+  }
+
+  onDelete(id) {
+    if (confirm('Are you sure to delete this record ?')) {
+      this._trabajadorService.deleteTrabajador(id);
+      this.notificationService.warn('! Deleted successfully');
+    }
   }
 }

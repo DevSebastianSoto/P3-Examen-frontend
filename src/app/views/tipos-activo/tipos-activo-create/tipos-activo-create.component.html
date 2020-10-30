@@ -1,3 +1,5 @@
+<h3>Crear Tipo de activo</h3>
+<mat-divider></mat-divider>
 <form [formGroup]="service.form" class="normal-form" (submit)="onSubmit()">
   <div>
     <input type="hidden" formControlName="id" />
@@ -25,7 +27,6 @@
         color="primary"
         type="submit"
         [disabled]="service.form.invalid"
-        (click)="onSubmit()"
       >
         Guardar
       </button>

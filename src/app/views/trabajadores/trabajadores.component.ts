@@ -43,9 +43,9 @@ export class TrabajadoresComponent implements OnInit {
   }
   loadCards() {
     if (this.isHandset) {
-      this.table = { title: 'Listar', cols: 4, rows: 1 };
+      this.table = { title: 'Trabajadores', cols: 4, rows: 1 };
     } else {
-      this.table = { title: 'Listar', cols: 4, rows: 1 };
+      this.table = { title: 'Trabajadores', cols: 4, rows: 1 };
     }
   }
 }

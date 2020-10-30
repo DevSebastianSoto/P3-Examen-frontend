@@ -1,5 +1,5 @@
 <div class="search-div">
-  <button (click)="agregarTipoActivo()" mat-raised-button color="accent">
+  <button (click)="onCreate()" mat-raised-button color="accent">
     <mat-icon>add</mat-icon>Agregar
   </button>
   <mat-form-field class="search-form-field" floatLabel="never">
@@ -22,7 +22,7 @@
     </button>
   </mat-form-field>
 </div>
-<div class="mat-elevation-z8">
+<div class="mat-elevation-z4">
   <mat-table [dataSource]="tableData" matSort>
     <ng-container matColumnDef="id">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
@@ -88,5 +88,5 @@
       [ngClass]="{ hide: !(tableData != null && tableData.data.length == 0) }"
     ></mat-footer-row>
   </mat-table>
-  <mat-paginator [pageSizeOptions]="[5, 10, 25]" [pageSize]="5"></mat-paginator>
+  <mat-paginator [pageSizeOptions]="[5, 10, 25]" [pageSize]="10"></mat-paginator>
 </div>

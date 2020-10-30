@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { EstadoEnum } from '../domain/EstadoEnum';
 import { TipoActivo } from '../domain/TipoActivo';
 
 @Injectable({
@@ -42,14 +43,20 @@ export class TiposActivoService {
   }
 
   createTipoActivo(ta: TipoActivo) {
+    ta.estado = ta.estado ? EstadoEnum.ACTIVO : EstadoEnum.INACTIVO;
     return this.http.post<TipoActivo>(this.apiBase, ta);
   }
 
   updateTipoActivo(ta: TipoActivo) {
+    ta.estado = ta.estado ? EstadoEnum.ACTIVO : EstadoEnum.INACTIVO;
     return this.http.put(`${this.apiBase}/${ta.id}`, ta);
   }
 
   deleteTipoActivo(id: number) {
     return this.http.delete(`${this.apiBase}/${id}`);
+  }
+
+  populateForm(row: any) {
+    throw new Error('Method not implemented.');
   }
 }

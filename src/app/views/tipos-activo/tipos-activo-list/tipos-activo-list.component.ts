@@ -5,6 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { TiposActivoService } from 'src/app/service/tipos-activo.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { TiposActivoCreateComponent } from '../tipos-activo-create/tipos-activo-create.component';
+import { NotificationService } from 'src/app/service/notification.service';
 
 @Component({
   selector: 'app-tipos-activo-list',
@@ -23,6 +24,7 @@ export class TiposActivoListComponent implements OnInit {
 
   constructor(
     private _tiposActivoService: TiposActivoService,
+    private notificationService: NotificationService,
     private dialog: MatDialog
   ) {}
 
@@ -45,12 +47,25 @@ export class TiposActivoListComponent implements OnInit {
   actualizarTabla() {
     this.tableData.filter = this.busqueda.trim().toLowerCase();
   }
-  agregarTipoActivo() {
+  onCreate() {
     const dialogConfig = new MatDialogConfig();
-    let data: any;
-    this._tiposActivoService.createTipoActivo(data);
     dialogConfig.autoFocus = true;
     dialogConfig.width = 'auto';
     this.dialog.open(TiposActivoCreateComponent, dialogConfig);
+  }
+  onEdit(row) {
+    this._tiposActivoService.populateForm(row);
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '60%';
+    this.dialog.open(TiposActivoCreateComponent, dialogConfig);
+  }
+
+  onDelete(id) {
+    if (confirm('Are you sure to delete this record ?')) {
+      this._tiposActivoService.deleteTipoActivo(id);
+      this.notificationService.warn('! Deleted successfully');
+    }
   }
 }
