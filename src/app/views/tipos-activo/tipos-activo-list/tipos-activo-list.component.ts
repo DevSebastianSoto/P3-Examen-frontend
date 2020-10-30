@@ -3,6 +3,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { TiposActivoService } from 'src/app/service/tipos-activo.service';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { TiposActivoCreateComponent } from '../tipos-activo-create/tipos-activo-create.component';
 
 @Component({
   selector: 'app-tipos-activo-list',
@@ -19,10 +21,13 @@ export class TiposActivoListComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(public _tiposActivoService: TiposActivoService) {}
+  constructor(
+    private _tiposActivoService: TiposActivoService,
+    private dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
-    this._tiposActivoService.getTrabajadores().subscribe((data) => {
+    this._tiposActivoService.getTiposActivo().subscribe((data) => {
       if (data.body != null) {
         this.tableData = new MatTableDataSource(data.body);
         this.tableData.sort = this.sort;
@@ -39,5 +44,13 @@ export class TiposActivoListComponent implements OnInit {
   }
   actualizarTabla() {
     this.tableData.filter = this.busqueda.trim().toLowerCase();
+  }
+  agregarTipoActivo() {
+    const dialogConfig = new MatDialogConfig();
+    let data: any;
+    this._tiposActivoService.createTipoActivo(data);
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = 'auto';
+    this.dialog.open(TiposActivoCreateComponent, dialogConfig);
   }
 }

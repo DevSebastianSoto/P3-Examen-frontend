@@ -32,7 +32,7 @@ export class TiposActivoComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this._tiposActivoService.getTrabajadores().subscribe((data) => {
+    this._tiposActivoService.getTiposActivo().subscribe((data) => {
       if (data.body != null) this.tiposActivo = data.body;
       this.loadCards();
     });

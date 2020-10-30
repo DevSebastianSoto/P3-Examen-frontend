@@ -34,6 +34,13 @@ import { TiposActivoListComponent } from './views/tipos-activo/tipos-activo-list
 import { ActivosFisicosComponent } from './views/activos-fisicos/activos-fisicos.component';
 import { ActivosFisicosListComponent } from './views/activos-fisicos/activos-fisicos-list/activos-fisicos-list.component';
 import { ActivosFisicosService } from './service/activos-fisicos.service';
+import { TrabajadorCreateComponent } from './views/trabajadores/trabajador-create/trabajador-create.component';
+import { TiposActivoCreateComponent } from './views/tipos-activo/tipos-activo-create/tipos-activo-create.component';
+import { ActivosFisicosCreateComponent } from './views/activos-fisicos/activos-fisicos-create/activos-fisicos-create.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -45,6 +52,9 @@ import { ActivosFisicosService } from './service/activos-fisicos.service';
     TiposActivoComponent,
     ActivosFisicosComponent,
     ActivosFisicosListComponent,
+    TrabajadorCreateComponent,
+    TiposActivoCreateComponent,
+    ActivosFisicosCreateComponent,
   ],
   imports: [
     BrowserModule,
@@ -69,6 +79,10 @@ import { ActivosFisicosService } from './service/activos-fisicos.service';
     MatSortModule,
     MatDialogModule,
     MatFormFieldModule,
+    MatCheckboxModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSnackBarModule,
   ],
   providers: [TrabajadorService, ActivosFisicosService, TiposActivoService],
   bootstrap: [AppComponent],
