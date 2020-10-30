@@ -58,7 +58,6 @@ export class TiposActivoService {
   }
 
   populateForm(row: any) {
-    console.log(row);
     this.form.setValue(_.omit(row, 'activosFisicos'));
   }
 }

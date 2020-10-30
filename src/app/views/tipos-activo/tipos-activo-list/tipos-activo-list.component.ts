@@ -23,13 +23,13 @@ export class TiposActivoListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
-    private _tiposActivoService: TiposActivoService,
+    private service: TiposActivoService,
     private notificationService: NotificationService,
     private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
-    this._tiposActivoService.getTiposActivo().subscribe((data: any) => {
+    this.service.getTiposActivo().subscribe((data: any) => {
       if (data.body != null) {
         this.tableData = new MatTableDataSource(data.body);
         this.tableData.sort = this.sort;
@@ -57,7 +57,7 @@ export class TiposActivoListComponent implements OnInit {
   }
 
   onEdit(row: any) {
-    this._tiposActivoService.populateForm(row);
+    this.service.populateForm(row);
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
     dialogConfig.width = 'auto';
@@ -66,13 +66,11 @@ export class TiposActivoListComponent implements OnInit {
 
   onDelete(id) {
     if (confirm('Seguro que desea borrar este registro?')) {
-      this._tiposActivoService
-        .deleteTipoActivo(id)
-        .subscribe((response: any) => {
-          this.notificationService.warn(
-            'Se han eliminado los datos correctamente'
-          );
-        });
+      this.service.deleteTipoActivo(id).subscribe((response: any) => {
+        this.notificationService.warn(
+          'Se han eliminado los datos correctamente'
+        );
+      });
     }
   }
 }

@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivoFisico } from '../domain/ActivoFisico';
+import { EstadoEnum } from '../domain/EstadoEnum';
+import * as _ from 'lodash';
 
 @Injectable({
   providedIn: 'root',
@@ -12,8 +14,11 @@ export class ActivosFisicosService {
 
   form: FormGroup = new FormGroup({
     id: new FormControl(null),
+    idTipoActivo: new FormControl(null, Validators.required),
     nombre: new FormControl('', Validators.required),
     descripcion: new FormControl('', Validators.required),
+    fechaIngreso: new FormControl('', Validators.required),
+    cantidad: new FormControl(0),
     estado: new FormControl(true),
   });
 
@@ -27,7 +32,6 @@ export class ActivosFisicosService {
       descripcion: '',
       fechaIngreso: '',
       cantidad: 0,
-      cantidadAsignados: 0,
       estado: false,
     });
   }
@@ -42,5 +46,23 @@ export class ActivosFisicosService {
     return this.http.get<ActivoFisico>(`${this.apiBase}/${id}`, {
       observe: 'response',
     });
+  }
+
+  createActivoFisico(ta: ActivoFisico) {
+    ta.estado = ta.estado ? EstadoEnum.ACTIVO : EstadoEnum.INACTIVO;
+    return this.http.post<ActivoFisico>(this.apiBase, ta);
+  }
+
+  updateActivoFisico(ta: ActivoFisico) {
+    ta.estado = ta.estado ? EstadoEnum.ACTIVO : EstadoEnum.INACTIVO;
+    return this.http.put(`${this.apiBase}/${ta.id}`, ta);
+  }
+
+  deleteActivoFisico(id: number) {
+    return this.http.delete(`${this.apiBase}/${id}`);
+  }
+
+  populateForm(row: any) {
+    this.form.setValue(_.omit(row, 'cantidadAsignados'));
   }
 }

@@ -1,5 +1,5 @@
 <div class="search-div">
-  <button mat-raised-button color="accent">
+  <button mat-raised-button color="accent" (click)="onCreate()">
     <mat-icon>add</mat-icon>Agregar
   </button>
   <mat-form-field class="search-form-field" floatLabel="never">
@@ -45,7 +45,7 @@
 
     <ng-container matColumnDef="fechaIngreso">
       <mat-header-cell *matHeaderCellDef mat-sort-header>
-        fechaIngreso
+        Fecha de ingreso
       </mat-header-cell>
       <mat-cell *matCellDef="let element">{{ element.fechaIngreso }}</mat-cell>
     </ng-container>
@@ -61,7 +61,7 @@
 
     <ng-container matColumnDef="cantidadAsignados">
       <mat-header-cell *matHeaderCellDef mat-sort-header
-        >cantidadAsignados
+        >Cantidad de asignados
         <mat-cell *matCellDef="let element"
           >{{ element.cantidadAsignados }}
         </mat-cell></mat-header-cell
@@ -70,7 +70,7 @@
 
     <ng-container matColumnDef="idTipoActivo">
       <mat-header-cell *matHeaderCellDef mat-sort-header
-        >idTipoActivo
+        >Id: Tipo Activo
         <mat-cell *matCellDef="let element"
           >{{ element.idTipoActivo }}
         </mat-cell></mat-header-cell
@@ -89,8 +89,10 @@
     <ng-container matColumnDef="acciones">
       <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
       <mat-cell *matCellDef="let row">
-        <button mat-icon-button><mat-icon>launch</mat-icon></button>
-        <button mat-icon-button color="warn">
+        <button mat-icon-button (click)="onEdit(row)">
+          <mat-icon>launch</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="onDelete(row.id)">
           <mat-icon>delete_outline</mat-icon>
         </button>
       </mat-cell>
@@ -122,5 +124,8 @@
       [ngClass]="{ hide: !(tableData != null && tableData.data.length == 0) }"
     ></mat-footer-row>
   </mat-table>
-  <mat-paginator [pageSizeOptions]="[5, 10, 25]" [pageSize]="10"></mat-paginator>
+  <mat-paginator
+    [pageSizeOptions]="[5, 10, 25]"
+    [pageSize]="10"
+  ></mat-paginator>
 </div>
